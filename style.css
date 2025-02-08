@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #0d0d0d;
+    background: linear-gradient(to bottom, #e8b1edc7, #4682B4);
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  canvas {
+    border: 2px solid #000;
+  }
+
+  #scoreDisplay {
+    font-size: 150px;
+    margin-top: 10px;
+    position: absolute;
+    top: 10px;
+    font-weight: bold;
+    color: whitesmoke;
+}
+
+#startButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.reward-message {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffeb3b;
+    color: #000;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
