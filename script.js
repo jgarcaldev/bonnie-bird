@@ -145,7 +145,7 @@ function update() {
     for (let i = 0; i < pipes.length; i++) {
         pipes[i].x -= 2.5 * SPEED_MULTIPLIER; // Tubos más rápidos, pero equilibrados con el pájaro
 
-        let margin = 20;
+        let margin = 10;
         if (
             bird.x + margin < pipes[i].x + pipes[i].width &&
             bird.x + bird.width - margin > pipes[i].x &&
