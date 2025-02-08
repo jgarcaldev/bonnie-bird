@@ -5,7 +5,7 @@ const startButton = document.getElementById("startButton");
 
 // Detectar si es un dispositivo móvil
 const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-const SPEED_MULTIPLIER = isMobile ? 2.5 : 2; // Aumenté la velocidad general del juego
+const SPEED_MULTIPLIER = isMobile ? 1.8 : 1.5; // Ajuste balanceado
 
 // Configuración del juego
 canvas.width = 320;
@@ -56,17 +56,17 @@ const rewards = {
     1000: "Cupón válido para un viaje..."
 };
 
-// Función para iniciar el juego
+// Iniciar el juego
 function startGame() {
-    startButton.style.display = "none"; // Ocultar el botón de inicio
+    startButton.style.display = "none";
 
     bird = {
         x: 50,
         y: canvas.height / 2,
         width: 40,
         height: 30,
-        gravity: 0.3 * SPEED_MULTIPLIER, // Más gravedad para que caiga más rápido
-        lift: -7 * SPEED_MULTIPLIER, // Salto más fuerte
+        gravity: 0.25 * SPEED_MULTIPLIER,
+        lift: -6 * SPEED_MULTIPLIER,
         velocity: 0
     };
 
@@ -81,14 +81,14 @@ function startGame() {
     loop();
 }
 
-// Función para dibujar el pájaro
+// Dibujar personaje
 function drawBird() {
     if (bird) {
         ctx.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
     }
 }
 
-// Función para dibujar las tuberías
+// Dibujar tubos
 function drawPipes() {
     for (let pipe of pipes) {
         ctx.drawImage(pipeTopImg, pipe.x, pipe.yTop, pipe.width, pipe.heightTop);
@@ -96,7 +96,7 @@ function drawPipes() {
     }
 }
 
-// Verificar si se ha alcanzado un premio
+// Verificar premios
 function checkForReward() {
     for (let points in rewards) {
         if (score >= points && lastRewardScore < points) {
@@ -120,16 +120,16 @@ function showRewardMessage(points, reward) {
     }, 3000);
 }
 
-// Actualizar el juego
+// Actualizar juego
 function update() {
     if (!gameRunning || !bird) return;
 
     bird.velocity += bird.gravity;
     bird.y += bird.velocity;
 
-    // Generar tubos más rápido (cada 70 frames en lugar de 100)
-    if (frame % 70 === 0) {
-        let gap = 150; // Reducí la distancia entre tubos para hacer el juego más difícil
+    // Generar tubos más rápido pero no demasiado
+    if (frame % 80 === 0) {
+        let gap =200;
         let pipeHeightTop = Math.random() * (canvas.height - gap - 100) + 50;
         let pipeHeightBottom = canvas.height - pipeHeightTop - gap;
         pipes.push({
@@ -143,9 +143,9 @@ function update() {
     }
 
     for (let i = 0; i < pipes.length; i++) {
-        pipes[i].x -= 3 * SPEED_MULTIPLIER; // Ahora los tubos se mueven más rápido
+        pipes[i].x -= 2.5 * SPEED_MULTIPLIER; // Tubos más rápidos, pero equilibrados con el pájaro
 
-        let margin = 10;
+        let margin = 20;
         if (
             bird.x + margin < pipes[i].x + pipes[i].width &&
             bird.x + bird.width - margin > pipes[i].x &&
@@ -169,14 +169,14 @@ function update() {
     frame++;
 }
 
-// Dibujar el juego
+// Dibujar juego
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBird();
     drawPipes();
 }
 
-// Reiniciar el juego
+// Reiniciar juego
 function gameOver() {
     alert("¡Game Over! Puntuación: " + score);
 
@@ -191,10 +191,10 @@ function gameOver() {
     }
 
     gameRunning = false;
-    startButton.style.display = "block"; // Mostrar botón de reinicio
+    startButton.style.display = "block";
 }
 
-// Bucle del juego
+// Bucle de juego
 function loop() {
     update();
     draw();
@@ -220,7 +220,7 @@ document.addEventListener("touchstart", () => {
     jump();
 });
 
-// Iniciar el juego cuando el DOM cargue completamente
+// Iniciar juego en DOM load
 document.addEventListener("DOMContentLoaded", () => {
     startButton.addEventListener("click", startGame);
 });
